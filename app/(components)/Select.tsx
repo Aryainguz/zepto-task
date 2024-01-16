@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
+import Image from 'next/image';
 
 type User = {
   id: number;
@@ -10,10 +11,12 @@ type User = {
 const Select = () => {
   const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
   const [dropdownUsers, setDropdownUsers] = useState<User[]>([
-    { id: 1, name: 'John Doe', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
-    { id: 2, name: 'Jane Smith', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
-    { id: 3, name: 'Bob Johnson', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
-    // Add more users here...
+    { id: 1, name: 'Mariana Augustine', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
+    { id: 2, name: 'Nick Gianapoulas', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
+    { id: 3, name: 'Narayan Garner', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
+    { id: 4, name: 'Anita Gros', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png'},
+    { id: 5, name: 'Megan Smith', avatar: 'https://cdn.pixabay.com/photo/2014/04/02/17/07/user-307993_640.png' },
+
   ]);
 
   const handleAddUser = (user: User) => {
@@ -37,12 +40,17 @@ const Select = () => {
     }
   }
 
+  const toggleDropdown = () => {
+    const options:| HTMLDivElement| null = document.querySelector('.options');
+    options?.classList.toggle('hidden');
+  };
+
   return (
-    <div className="relative my-12 border-b border-blue-500" onClick={()=>{document.querySelector(".options").classList.toggle("hidden")}}>
+    <div className="relative my-12 border-b border-blue-500" onClick={toggleDropdown}>
       <div className="flex flex-wrap gap-2">
         {selectedUsers.map((user) => (
           <div key={user.id} className="flex items-center gap-2 bg-gray-200 rounded p-2">
-            <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
+            <Image src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
             <span>{user.name}</span>
             <button onClick={() => handleRemoveUser(user)}>&times;</button>
           </div>
@@ -52,7 +60,7 @@ const Select = () => {
       <div className="absolute hidden options top-full left-[100px] w-[300px] bg-white  rounded mt-2 border-2">
         {dropdownUsers.map((user) => (
           <div key={user.id} className="flex items-center gap-2 p-2 cursor-pointer" onClick={()=>handleAddUser(user)}>
-            <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
+            <Image src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full" />
             <span>{user.name}</span>
           </div>
         ))}
